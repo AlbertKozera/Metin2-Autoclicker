@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="600.0" style="-fx-background-color: #2F3032;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alfu.autoclicker.HelloController">
+    <children>
+        <TextField layoutX="14.0" layoutY="54.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 2" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 1" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 3" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 4" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="174.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 5" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="214.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 6" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="254.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 7" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="294.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 8" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="334.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 9" stylesheets="@../css/textField.css" />
+        <TextField layoutX="14.0" layoutY="374.0" prefHeight="25.0" prefWidth="200.0" promptText="path no. 10" stylesheets="@../css/textField.css" />
+        <RadioButton fx:id="path1" layoutX="191.0" layoutY="20.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <ToggleGroup fx:id="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path2" layoutX="191.0" layoutY="60.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path3" layoutX="191.0" layoutY="100.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path4" layoutX="191.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path5" layoutX="191.0" layoutY="180.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path6" layoutX="191.0" layoutY="220.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path7" layoutX="191.0" layoutY="260.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path8" layoutX="191.0" layoutY="300.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path9" layoutX="191.0" layoutY="340.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="path10" layoutX="191.0" layoutY="380.0" mnemonicParsing="false" stylesheets="@../css/radioButton.css">
+            <toggleGroup>
+                <fx:reference source="group" />
+            </toggleGroup>
+        </RadioButton>
+        <Button cancelButton="true" layoutX="353.0" layoutY="120.0" mnemonicParsing="false" onAction="#startRecord" stylesheets="@../css/button.css" text="Start record" />
+      <Separator layoutX="223.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="420.0" prefWidth="0.0" />
+      <Button disable="true" layoutX="354.0" layoutY="229.0" mnemonicParsing="false" onAction="#stopRecord" stylesheets="@../css/button.css" text="Stop record" />
+      <TextArea fx:id="recordDisplayer" layoutX="294.0" layoutY="160.0" prefHeight="58.0" prefWidth="200.0" />
+    </children>
+</AnchorPane>

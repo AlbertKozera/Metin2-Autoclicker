@@ -13,30 +13,24 @@ import org.jnativehook.NativeHookException;
 
 public class HelloApplication extends Application {
 
+  static HelloController helloController;
+
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/hello-view.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
-    stage.setTitle("Hello!");
+    stage.setTitle("Jebać hipsterów");
     stage.setScene(scene);
     stage.show();
   }
 
   public static void main(String[] args) {
-    registerGlobalMouseListener();
-    launch();
-  }
-
-  private static void registerGlobalMouseListener() {
     LogManager.getLogManager().reset();
     Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
     logger.setLevel(Level.OFF);
-    try {
-      GlobalScreen.registerNativeHook();
-    } catch (NativeHookException ex) {
-      System.exit(1);
-    }
-
-    GlobalScreen.addNativeMouseListener(new GlobalMouseListener());
+    launch();
   }
+
+
+
 }
