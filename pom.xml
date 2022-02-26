@@ -95,7 +95,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.alfu.autoclicker/com.alfu.autoclicker.controller.HelloApplication</mainClass>
+              <mainClass>com.alfu.autoclicker/com.alfu.autoclicker.controller.MainController</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

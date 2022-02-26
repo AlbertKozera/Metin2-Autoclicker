@@ -57,7 +57,7 @@ public class FileService {
                 }
             }
         }
-        if(paths == null) {
+        if (paths == null) {
             paths = new ArrayList<>();
         }
         paths.add(selectedPath);
@@ -77,5 +77,4 @@ public class FileService {
         var selectedTextField = (TextField) parentPane.getChildren().get(0);
         return selectedTextField.getText();
     }
-
 }

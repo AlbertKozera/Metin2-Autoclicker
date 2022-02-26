@@ -11,13 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class HelloApplication extends Application {
+public class MainController extends Application {
 
-    public static HelloController helloController;
+    public static PathController pathController;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("/fxml/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Jebać hipsterów");
         stage.setScene(scene);

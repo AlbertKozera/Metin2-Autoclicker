@@ -17,7 +17,7 @@ import java.util.List;
 import static com.alfu.autoclicker.dto.RecordButtonStatus.DISABLE;
 import static com.alfu.autoclicker.dto.RecordButtonStatus.ENABLE;
 
-public class HelloController {
+public class PathController {
 
     public static List<Point> points = new ArrayList<>();
     public static GlobalMouseListener globalMouseListener;
@@ -52,7 +52,7 @@ public class HelloController {
 
     @FXML
     void initialize() throws IOException {
-        HelloApplication.helloController = this;
+        MainController.pathController = this;
         fileService.initFile();
     }
 
@@ -95,6 +95,5 @@ public class HelloController {
         startRecordButton.setDisable(startButton.value());
         stopRecordButton.setDisable(stopButton.value());
     }
-
 
 }
