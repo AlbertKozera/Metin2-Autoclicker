@@ -4,8 +4,10 @@ import com.alfu.autoclicker.dto.Point;
 import com.alfu.autoclicker.dto.RecordButtonStatus;
 import com.alfu.autoclicker.listener.GlobalMouseListener;
 import com.alfu.autoclicker.service.FileService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jnativehook.GlobalScreen;
@@ -25,6 +27,7 @@ public class PathController {
 
     private final FileService fileService = new FileService();
 
+    public AnchorPane root;
     public VBox pathControlPanel;
     public ToggleGroup pathRadioButtonGroup = new ToggleGroup();
     public RadioButton path0;
@@ -54,6 +57,7 @@ public class PathController {
     @FXML
     void initialize() throws IOException {
         MainController.pathController = this;
+        Platform.runLater(() -> root.requestFocus());
         handleDisableAndEnableTextFields();
         fileService.initFile();
         fillWindowWithDataFromFile();
@@ -124,7 +128,7 @@ public class PathController {
         return Integer.parseInt(pathId.replaceAll("[a-zA-Z]", ""));
     }
 
-    private void handleDisableAndEnableTextFields(){
+    private void handleDisableAndEnableTextFields() {
         pathRadioButtonGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             var oldTextField = getTextFieldByRadioButton((RadioButton) oldValue);
             var newTextField = getTextFieldByRadioButton((RadioButton) newValue);
