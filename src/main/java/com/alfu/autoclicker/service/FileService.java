@@ -14,43 +14,41 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileService {
 
-    public void serializePaths(ToggleGroup pathRadioButtonGroup, List<Point> points) throws IOException {
-        var gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-
-        var selectedRadioButton = (RadioButton) pathRadioButtonGroup.getSelectedToggle();
-        var selectedPath = getSelectedPath(points, selectedRadioButton);
-
-        List<PathData> paths = updateAndGetPaths(selectedPath);
-        Type collectionType = new TypeToken<List<PathData>>() {
-        }.getType();
-        try (var writer = new FileWriter("data.json")) {
-            gson.toJson(paths, collectionType, writer);
+    public void initFile() throws IOException {
+        var file = new File("data.json");
+        if (!file.exists()) {
+            file.createNewFile();
         }
     }
 
-    public List<PathData> getDeserializedPaths() throws IOException {
-        var file = new File("data.json");
-        if (file.length() != 0) {
-            Type collectionType = new TypeToken<List<PathData>>() {
-            }.getType();
-            try (var reader = new FileReader(file)) {
-                return new Gson().fromJson(reader, collectionType);
-            }
+    public void serializePathData(ToggleGroup pathRadioButtonGroup, List<Point> points) throws IOException {
+        List<PathData> paths = updateAndGetPaths(getSelectedPathData(pathRadioButtonGroup, points));
+        var collectionType = new TypeToken<List<PathData>>() {
+        }.getType();
+        try (var writer = new FileWriter("data.json")) {
+            new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create()
+                    .toJson(paths, collectionType, writer);
         }
-        return new ArrayList<>();
+    }
+
+    public List<PathData> deserializePathData() throws IOException {
+        var collectionType = new TypeToken<List<PathData>>() {
+        }.getType();
+        try (var reader = new FileReader("data.json")) {
+            return new Gson().fromJson(reader, collectionType);
+        }
     }
 
     private List<PathData> updateAndGetPaths(PathData selectedPath) throws IOException {
-        var paths = getDeserializedPaths();
-        if (!paths.isEmpty()) {
+        var paths = deserializePathData();
+        if (paths != null && !paths.isEmpty()) {
             for (int i = 0; i < paths.size(); i++) {
                 var PathData = paths.get(i);
                 if (PathData.getId().equals(selectedPath.getId())) {
@@ -59,11 +57,15 @@ public class FileService {
                 }
             }
         }
+        if(paths == null) {
+            paths = new ArrayList<>();
+        }
         paths.add(selectedPath);
         return paths;
     }
 
-    private PathData getSelectedPath(List<Point> points, RadioButton selectedRadioButton) {
+    private PathData getSelectedPathData(ToggleGroup pathRadioButtonGroup, List<Point> points) {
+        var selectedRadioButton = (RadioButton) pathRadioButtonGroup.getSelectedToggle();
         return new PathData(
                 selectedRadioButton.getId(),
                 getTextFieldValueByRadioButton(selectedRadioButton),

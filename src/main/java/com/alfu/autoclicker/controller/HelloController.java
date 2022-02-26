@@ -53,6 +53,7 @@ public class HelloController {
     @FXML
     void initialize() throws IOException {
         HelloApplication.helloController = this;
+        fileService.initFile();
     }
 
     @FXML
@@ -67,7 +68,7 @@ public class HelloController {
         System.out.println("Recording stop!");
         switchStatusOfRecordButtons(DISABLE, ENABLE);
         unregisterGlobalMouseListener();
-        fileService.serializePaths(pathRadioButtonGroup, points);
+        fileService.serializePathData(pathRadioButtonGroup, points);
         points.clear();
     }
 
