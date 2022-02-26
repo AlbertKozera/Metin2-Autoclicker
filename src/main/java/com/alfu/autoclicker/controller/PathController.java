@@ -6,6 +6,7 @@ import com.alfu.autoclicker.listener.GlobalMouseListener;
 import com.alfu.autoclicker.service.FileService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -22,10 +23,11 @@ public class PathController {
     public static List<Point> points = new ArrayList<>();
     public static GlobalMouseListener globalMouseListener;
 
-    private FileService fileService = new FileService();
+    private final FileService fileService = new FileService();
 
-    public VBox savePathPanel;
+    public VBox pathControlPanel;
     public ToggleGroup pathRadioButtonGroup = new ToggleGroup();
+    public RadioButton path0;
     public RadioButton path1;
     public RadioButton path2;
     public RadioButton path3;
@@ -35,7 +37,7 @@ public class PathController {
     public RadioButton path7;
     public RadioButton path8;
     public RadioButton path9;
-    public RadioButton path10;
+    public TextField pathDescription0;
     public TextField pathDescription1;
     public TextField pathDescription2;
     public TextField pathDescription3;
@@ -45,7 +47,6 @@ public class PathController {
     public TextField pathDescription7;
     public TextField pathDescription8;
     public TextField pathDescription9;
-    public TextField pathDescription10;
     public Button startRecordButton;
     public Button stopRecordButton;
     public TextArea recordDisplayer;
@@ -53,7 +54,9 @@ public class PathController {
     @FXML
     void initialize() throws IOException {
         MainController.pathController = this;
+        handleDisableAndEnableTextFields();
         fileService.initFile();
+        fillWindowWithDataFromFile();
     }
 
     @FXML
@@ -94,6 +97,44 @@ public class PathController {
     private void switchStatusOfRecordButtons(RecordButtonStatus startButton, RecordButtonStatus stopButton) {
         startRecordButton.setDisable(startButton.value());
         stopRecordButton.setDisable(stopButton.value());
+    }
+
+    private void switchStatusOfTextField(TextField oldTextField, TextField newTextField) {
+        oldTextField.setDisable(ENABLE.value());
+        newTextField.setDisable(DISABLE.value());
+    }
+
+    private void fillWindowWithDataFromFile() throws IOException {
+        var paths = fileService.deserializePathData();
+        if (paths != null && !paths.isEmpty()) {
+            paths.forEach(pathData -> {
+                var pathDataId = getIdAsIntFromPaths(pathData.getId());
+                var textField = (TextField) (
+                        ((Pane) (
+                                pathControlPanel.getChildren().get(pathDataId))
+                        ).getChildren().get(0)
+                );
+                var description = pathData.getDescription();
+                textField.setText(description);
+            });
+        }
+    }
+
+    private int getIdAsIntFromPaths(String pathId) {
+        return Integer.parseInt(pathId.replaceAll("[a-zA-Z]", ""));
+    }
+
+    private void handleDisableAndEnableTextFields(){
+        pathRadioButtonGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            var oldTextField = getTextFieldByRadioButton((RadioButton) oldValue);
+            var newTextField = getTextFieldByRadioButton((RadioButton) newValue);
+            switchStatusOfTextField(oldTextField, newTextField);
+        });
+    }
+
+    private TextField getTextFieldByRadioButton(RadioButton radioButton) {
+        var pane = (Pane) radioButton.getParent();
+        return (TextField) pane.getChildren().get(0);
     }
 
 }
